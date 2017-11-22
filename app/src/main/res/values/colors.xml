@@ -6,4 +6,7 @@
     <color name="colorBlue">#10bbd7</color>
     <color name="colorDarkBlue">#2d7a96</color>
     <color name="colorMiddleBlue">#1c92ba</color>
+    <color name="colorDark1">#434242</color>
+    <color name="colorDark2">#030303</color>
+    <color name="colorBlack">#000000</color>
 </resources>
