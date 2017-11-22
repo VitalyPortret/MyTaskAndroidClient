@@ -4,4 +4,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="Login">Войти</string>
+    <string name="post_a_task">Post a task</string>
+    <string name="my_tasks">My tasks</string>
+    <string name="browse">Browse</string>
+    <string name="messages">Messages</string>
+    <string name="profile">Profile</string>
 </resources>
