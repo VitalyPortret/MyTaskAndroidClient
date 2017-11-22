@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +10,46 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/statusTaskBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivStatusTask1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@color/colorAccent" />
+
+            <ImageView
+                android:id="@+id/ivStatusTask2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@color/colorDark1" />
+
+            <ImageView
+                android:id="@+id/ivStatusTask3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@color/colorMiddleBlue" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_row"
+            android:layout_margin="@dimen/margin_row"
+            android:textColor="@color/colorDark2"
+            android:textSize="20sp"
             android:text="Название" />
 
         <LinearLayout
@@ -35,6 +71,7 @@
                 <LinearLayout
                     android:layout_width="183dp"
                     android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/left_margin_task_detail"
                     android:orientation="vertical">
 
                     <TextView
@@ -58,6 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_row"
+                    android:layout_marginLeft="@dimen/left_margin_task_detail"
                     android:text="Дата" />
 
             </LinearLayout>
@@ -76,6 +114,7 @@
                 <LinearLayout
                     android:layout_width="183dp"
                     android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/left_margin_task_detail"
                     android:orientation="vertical">
 
                     <TextView
@@ -99,6 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_row"
+                    android:layout_marginLeft="@dimen/left_margin_task_detail"
                     android:text="На карте" />
 
             </LinearLayout>
@@ -117,6 +157,7 @@
                 <LinearLayout
                     android:layout_width="183dp"
                     android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/left_margin_task_detail"
                     android:orientation="vertical">
 
                     <TextView
@@ -142,7 +183,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/rounded_panel"
             android:orientation="vertical">
 
@@ -150,17 +194,24 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textAlignment="center"
+                android:textColor="@color/colorDark2"
+                android:textSize="15sp"
                 android:background="@drawable/rounded_panel_header"
-                android:text="Предложение" />
+                android:text="ПРЕДЛОЖЕНИЕ" />
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:text="Цена"/>
+                android:textColor="@color/colorDark2"
+                android:textSize="26sp"
+                android:text="1000Р"/>
 
             <Button
                 android:id="@+id/button"
@@ -169,23 +220,25 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_button"
-                android:text="@string/Login"
+                android:text="@string/accept"
+                android:textAlignment="center"
                 android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:paddingTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
                 android:background="@color/colorMiddleGrey"
                 android:text="ОПИСАНИЕ" />
 
@@ -193,7 +246,10 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:paddingTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
                 android:text="tvDescription"/>
 
         </LinearLayout>
@@ -201,13 +257,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:paddingTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
                 android:background="@color/colorMiddleGrey"
                 android:text="Согласившиеся" />
 
@@ -215,7 +274,10 @@
                 android:id="@+id/tvOffers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:paddingTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
                 android:text="Согласившиеся люди"/>
 
         </LinearLayout>
