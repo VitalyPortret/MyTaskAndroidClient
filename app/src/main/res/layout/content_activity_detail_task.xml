@@ -187,7 +187,7 @@
             android:layout_marginBottom="25dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_panel"
+            android:background="@drawable/custom_rounded_panel"
             android:orientation="vertical">
 
             <TextView
@@ -200,7 +200,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorDark2"
                 android:textSize="15sp"
-                android:background="@drawable/rounded_panel_header"
+                android:background="@drawable/custom_rounded_panel_header"
                 android:text="ПРЕДЛОЖЕНИЕ" />
 
             <TextView
@@ -215,13 +215,13 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="217dp"
-                android:layout_height="31dp"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/custom_rounded_button_background"
                 android:text="@string/accept"
-                android:layout_marginLeft="78dp"
+                android:layout_gravity="center"
                 android:textColor="@color/colorWhite" />
 
         </LinearLayout>

@@ -11,4 +11,6 @@
     <string name="profile">Profile</string>
     <string name="accept">ПРИНЯТЬ</string>
     <string name="btn_continue">ПРОДОЛЖИТЬ</string>
+    <string name="totalBudget">Общий</string>
+    <string name="hourlyRateBudget">Почасовая оплата</string>
 </resources>

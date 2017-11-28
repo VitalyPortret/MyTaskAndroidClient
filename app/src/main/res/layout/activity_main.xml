@@ -24,7 +24,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="446dp"
-        android:orientation="horizontal" />
+        android:orientation="vertical" />
 
 
 </android.support.constraint.ConstraintLayout>

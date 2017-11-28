@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Опубликовать задание">
+            android:label="Опубликовать задание"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,15 +19,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity">
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".DetailTaskActivity"
-            android:label="Информация о задании">
+            android:label="Информация о задании"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".BrowseTaskActivity"
-            android:label="Просмотр заданий">
+            android:label="Просмотр заданий"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
