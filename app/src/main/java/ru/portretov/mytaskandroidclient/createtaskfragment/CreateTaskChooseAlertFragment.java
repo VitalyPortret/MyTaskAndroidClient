@@ -16,12 +16,26 @@ import ru.portretov.mytaskandroidclient.entity.Task;
 
 public class CreateTaskChooseAlertFragment extends Fragment implements View.OnClickListener{
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_create_task_choose_alert, null);
+        View view = inflater.inflate(R.layout.fragment_create_task_choose_alert, null);
+        setImageViewOnClick(view);
+
+        return view;
+    }
+
+    private void setImageViewOnClick(View view ) {
+        view.findViewById(R.id.imageView1).setOnClickListener(this);
+        view.findViewById(R.id.imageView2).setOnClickListener(this);
+        view.findViewById(R.id.imageView3).setOnClickListener(this);
+        view.findViewById(R.id.imageView4).setOnClickListener(this);
+        view.findViewById(R.id.imageView5).setOnClickListener(this);
+        view.findViewById(R.id.imageView6).setOnClickListener(this);
+        view.findViewById(R.id.imageView7).setOnClickListener(this);
+        view.findViewById(R.id.imageView8).setOnClickListener(this);
+        view.findViewById(R.id.imageView9).setOnClickListener(this);
+        view.findViewById(R.id.imageView10).setOnClickListener(this);
     }
 
     @Override
@@ -64,6 +78,7 @@ public class CreateTaskChooseAlertFragment extends Fragment implements View.OnCl
         }
         MainActivity activity = (MainActivity) getActivity();
         activity.getTask().setAlert(alert);
+        activity.toFirstFragment();
 
     }
 }

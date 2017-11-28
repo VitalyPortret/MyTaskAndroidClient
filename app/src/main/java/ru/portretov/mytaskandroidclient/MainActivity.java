@@ -1,5 +1,6 @@
 package ru.portretov.mytaskandroidclient;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -20,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fTransaction;
     //    private FrameLayout fragmentContainer;
     private CreateTaskChooseAlertFragment alertFragment;
-    private CreateTaskChapterOneFragment oneFragment;
-    private CreateTaskChapterTwoFragment twoFragment;
-    private CreateTaskChapterThreeFragment threeFragment;
 
     private Task task;
 
@@ -39,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        task = new Task();
         fManager = getFragmentManager();
-        fTransaction = fManager.beginTransaction();
         toAlertFragment();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -48,27 +46,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toAlertFragment() {
+        fTransaction = fManager.beginTransaction();
         alertFragment = new CreateTaskChooseAlertFragment();
         fTransaction.add(R.id.fragmentContainer, alertFragment);
         fTransaction.commit();
     }
 
-    public void toFirstFragment() {
-        oneFragment = new CreateTaskChapterOneFragment();
-        fTransaction.replace(R.id.fragmentContainer, oneFragment);
+    private void toViewFragment(Fragment fragment, String backStackString) {
+        fTransaction = fManager.beginTransaction();
+        fTransaction.replace(R.id.fragmentContainer, fragment);
+        fTransaction.addToBackStack(backStackString);
         fTransaction.commit();
+    }
+
+    public void toFirstFragment() {
+        toViewFragment(new CreateTaskChapterOneFragment(), "first");
     }
 
     public void toSecondFragment() {
-        twoFragment = new CreateTaskChapterTwoFragment();
-        fTransaction.replace(R.id.fragmentContainer, twoFragment);
-        fTransaction.commit();
+        toViewFragment(new CreateTaskChapterTwoFragment(), "second");
     }
 
-    public void toTheardFragment() {
-        threeFragment = new CreateTaskChapterThreeFragment();
-        fTransaction.replace(R.id.fragmentContainer, threeFragment);
-        fTransaction.commit();
+    public void toThirdFragment() {
+        toViewFragment(new CreateTaskChapterThreeFragment(), "third");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
