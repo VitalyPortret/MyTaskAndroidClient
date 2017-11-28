@@ -2,19 +2,21 @@ package ru.portretov.mytaskandroidclient.entity;
 
 import java.util.Date;
 
+import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
+
 public class Task {
 
     private String id;
 
     private String title;
 
-    private String describe;
+    private String description;
 
     private Date dueDate;
 
     private String taskStatus;
 
-    private String taskType;
+    private TaskType taskType;
 
     private String alert;
 
@@ -42,12 +44,12 @@ public class Task {
         this.title = title;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getDueDate() {
@@ -58,20 +60,20 @@ public class Task {
         this.dueDate = dueDate;
     }
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
     public String getTaskStatus() {
         return taskStatus;
     }
 
     public void setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus;
-    }
-
-    public String getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(String taskType) {
-        this.taskType = taskType;
     }
 
     public String getAlert() {
