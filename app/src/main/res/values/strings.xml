@@ -13,4 +13,12 @@
     <string name="btn_continue">ПРОДОЛЖИТЬ</string>
     <string name="totalBudget">Общий</string>
     <string name="hourlyRateBudget">Почасовая оплата</string>
+    <string name="what_your_budget">Какой у ваш бюджет?</string>
+    <string name="hours">Часов</string>
+    <string name="price_per_hour">Цена за час</string>
+    <string name="minimun_10_char">Минимум 10 символов</string>
+    <string name="task_title">Заголовок задания</string>
+    <string name="task_description">Описание задания</string>
+    <string name="task_location">Местоположение задания</string>
+    <string name="minimum_25_char">Минимум 25 символов</string>
 </resources>
