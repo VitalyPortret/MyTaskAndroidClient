@@ -220,7 +220,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/custom_rounded_button_background"
-                android:text="@string/accept"
+                android:text="@string/btn_accept"
                 android:layout_gravity="center"
                 android:textColor="@color/colorWhite" />
 

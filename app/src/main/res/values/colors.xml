@@ -14,5 +14,6 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorMiddleGrey">#f1dedede</color>
+    <color name="colorH2">#787878</color>
     <color name="transparent">#00ffffff</color>
 </resources>

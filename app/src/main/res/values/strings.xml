@@ -3,22 +3,26 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="Login">Войти</string>
+    <string name="login">Войти</string>
     <string name="post_a_task">Post a task</string>
     <string name="my_tasks">My tasks</string>
     <string name="browse">Browse</string>
     <string name="messages">Messages</string>
     <string name="profile">Profile</string>
-    <string name="accept">ПРИНЯТЬ</string>
+
+    <string name="btn_accept">ПРИНЯТЬ</string>
     <string name="btn_continue">ПРОДОЛЖИТЬ</string>
-    <string name="totalBudget">Общий</string>
-    <string name="hourlyRateBudget">Почасовая оплата</string>
-    <string name="what_your_budget">Какой у ваш бюджет?</string>
+
+    <string name="total_budget">Общий бюджет</string>
+    <string name="hourly_rate_budget">Почасовая оплата</string>
+    <string name="what_your_budget">Ваш бюджет?</string>
     <string name="hours">Часов</string>
     <string name="price_per_hour">Цена за час</string>
-    <string name="minimun_10_char">Минимум 10 символов</string>
+
     <string name="task_title">Заголовок задания</string>
     <string name="task_description">Описание задания</string>
     <string name="task_location">Местоположение задания</string>
+
+    <string name="minimun_10_char">Минимум 10 символов</string>
     <string name="minimum_25_char">Минимум 25 символов</string>
 </resources>

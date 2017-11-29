@@ -34,7 +34,7 @@ public class CreateTaskChapterThreeFragment extends Fragment implements AdapterV
     private double budget = 0;
 
     public void setCountWorker(byte countWorker) {
-        if (countWorker >= 1 && countWorker <= 30) {
+        if (countWorker >= 1 && countWorker <= 10) {
             this.countWorker = countWorker;
         }
     }
