@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,9 +14,10 @@
         android:layout_width="254dp"
         android:layout_height="33dp"
         android:layout_marginBottom="17dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/custom_pink_rg_toggle"
-        android:checkedButton="@+id/offer"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_toggle_radio_button"
+        android:checkedButton="@+id/rbTotalBudget"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <RadioButton
@@ -29,7 +31,7 @@
             android:background="@drawable/custom_toggle_widget_background"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/totalBudget"
+            android:text="@string/total_budget"
             android:textColor="@color/colorWhite" />
 
         <RadioButton
@@ -43,42 +45,85 @@
             android:background="@drawable/custom_toggle_widget_background"
             android:button="@null"
             android:gravity="center"
-            android:text="@string/hourlyRateBudget"
+            android:text="@string/hourly_rate_budget"
             android:textColor="@color/colorWhite" />
     </RadioGroup>
 
     <LinearLayout
+        android:id="@+id/llTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_row"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/what_your_budget"
+            android:layout_marginBottom="13dp"
+            android:textSize="19sp"/>
+
         <EditText
             android:id="@+id/etTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llHourlyRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_row"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:text="@string/hours"
+                android:textSize="19sp" />
+
+
+            <EditText
+                android:id="@+id/etHourlyRateHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:textAlignment="center" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="@dimen/margin_row"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etHourlyRateHours"
-                android:layout_width="187dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                android:layout_marginBottom="13dp"
+                android:text="@string/price_per_hour"
+                android:textSize="19sp" />
 
             <EditText
                 android:id="@+id/etHourlyRatePriPerHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_row"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="number"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -89,7 +134,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_row"
         android:orientation="horizontal">
-
 
         <TextView
             android:id="@+id/textView14"
@@ -103,43 +147,51 @@
             android:id="@+id/tvCountWorkers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="13dp"
             android:layout_weight="1"
-            android:text="20"
+            android:text="1"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="14dp"
+            android:id="@+id/btnMinus"
+            android:layout_width="10dp"
             android:layout_height="@dimen/button_height"
+            android:layout_marginTop="13dp"
             android:layout_weight="1"
             android:background="@drawable/custom_rounded_left_button_background"
-            android:textColor="@color/colorWhite"
             android:text="-"
+            android:textColor="@color/colorWhite"
             android:textSize="19sp" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="5dp"
+            android:id="@+id/btnPlus"
+            android:layout_width="@dimen/button_min_width"
             android:layout_height="@dimen/button_height"
+            android:layout_marginTop="13dp"
             android:layout_weight="1"
             android:background="@drawable/custom_rounded_right_button_background"
-            android:textColor="@color/colorWhite"
             android:text="+"
+            android:textColor="@color/colorWhite"
             android:textSize="19sp" />
 
     </LinearLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:textColor="@color/colorDark2"
+        android:layout_gravity="center"
+        android:text="Столько за каждого"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnContinue"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/custom_rounded_button_background"
-        android:text="@string/accept"
+        android:text="@string/btn_accept"
         android:textColor="@color/colorWhite"
         android:layout_gravity="center"/>
 
