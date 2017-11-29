@@ -3,17 +3,21 @@ package ru.portretov.mytaskandroidclient;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import java.io.IOException;
+
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterOneFragment;
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterThreeFragment;
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterTwoFragment;
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChooseAlertFragment;
 import ru.portretov.mytaskandroidclient.entity.Task;
+import ru.portretov.mytaskandroidclient.util.DataUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,5 +95,29 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    //Обработка запросов в фоновом потоке
+    private class PostTaskAsync extends AsyncTask<Task, Void, Task> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Task doInBackground(Task... tasks) {
+            try {
+                return DataUtil.postTask(tasks[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Task result) {
+            super.onPostExecute(result);
+        }
+    }
 
 }
