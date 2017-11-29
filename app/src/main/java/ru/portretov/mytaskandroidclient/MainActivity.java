@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fManager;
     private FragmentTransaction fTransaction;
-    //    private FrameLayout fragmentContainer;
-    private CreateTaskChooseAlertFragment alertFragment;
 
     private Task task;
 
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void toAlertFragment() {
         fTransaction = fManager.beginTransaction();
-        alertFragment = new CreateTaskChooseAlertFragment();
+        CreateTaskChooseAlertFragment alertFragment = new CreateTaskChooseAlertFragment();
         fTransaction.add(R.id.fragmentContainer, alertFragment);
         fTransaction.commit();
     }
@@ -73,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void toThirdFragment() {
         toViewFragment(new CreateTaskChapterThreeFragment(), "third");
+    }
+
+    public void sendTaskToServer() {
+        new PostTaskAsync().execute(task);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Task result) {
             super.onPostExecute(result);
+            task = result;
         }
     }
 

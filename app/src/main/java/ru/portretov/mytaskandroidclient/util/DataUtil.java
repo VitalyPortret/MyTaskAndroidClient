@@ -1,5 +1,7 @@
 package ru.portretov.mytaskandroidclient.util;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 import ru.portretov.mytaskandroidclient.entity.Task;
 
@@ -17,24 +18,25 @@ import ru.portretov.mytaskandroidclient.entity.Task;
 
 public class DataUtil {
 
-    public static Task postTask(Task... args) throws IOException {
+    public static Task postTask(Task... tasks) throws IOException {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
         BufferedReader reader = null;
         URL url;
 
         try {
-            url = new URL("");
+            url = new URL(ServerURL.URL_POST_TASK);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(15000);
-//            connection.setRequestProperty("Content-Length", "" + Integer.toString(params.getBytes().length));
             connection.setDoInput(true);
             connection.setDoOutput(true);
             OutputStream os = connection.getOutputStream();
-//            byte[] data = params.getBytes("UTF-8");
-//            os.write(data);
+            String taskString = JSON.toJSONString(tasks[0]);
+//            connection.setRequestProperty("Content-Length", Integer.toString(taskString.getBytes("UTF-8").length));
+            byte[] byteArray = taskString.getBytes("UTF-8");
+            os.write(byteArray);
             connection.connect();
 
             inputStream  = connection.getInputStream();
@@ -45,7 +47,7 @@ public class DataUtil {
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
             }
-            return JSON.parseArray(stringBuilder.toString(), Task.class);
+            return (Task) JSON.parse(stringBuilder.toString());
         } finally {
             if (connection != null) {
                 connection.disconnect();

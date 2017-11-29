@@ -111,7 +111,7 @@ public class CreateTaskChapterThreeFragment extends Fragment implements AdapterV
                 MainActivity activity = (MainActivity) getActivity();
                 Task task = activity.getTask();
                 if (validateTask(task)) {
-                    activity.toThirdFragment();
+                    activity.sendTaskToServer();
                 }
                 break;
             case R.id.btnMinus:
@@ -130,6 +130,7 @@ public class CreateTaskChapterThreeFragment extends Fragment implements AdapterV
         //TODO Переписать бюджет на сервере, и здесь(учитывать кол-во работников, полная или почасовая оплата)
         if (budget > 300 && budget < 100000) {
             task.setBudget(budget);
+            task.setCountPeople(countWorker);
             return true;
         }
         showDialog("Ошибка с бюджетом", "Бюджет не должен быть меньше 300 Р и превышать 100000 Р");
