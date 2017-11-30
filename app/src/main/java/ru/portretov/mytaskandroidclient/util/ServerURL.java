@@ -4,10 +4,11 @@ package ru.portretov.mytaskandroidclient.util;
  * Created by adminvp on 11/29/17.
  */
 
-class ServerURL {
+public class ServerURL {
     private static final String URL_SERVER = "http://10.0.2.2:8080";
 
-    static final String URL_POST_TASK = URL_SERVER + "/api/tasks/create";
-
-    static final String URL_ALL_TASKS = URL_SERVER + "/api/tasks/";
+    public static final String URL_POST_TASK = URL_SERVER + "/api/tasks/create";
+    public static final String URL_ALL_TASKS = URL_SERVER + "/api/tasks/";
+    public static final String URL_OPEN_TASKS = URL_SERVER + "/api/tasks/open";
+    public static final String URL_ONLINE_TASKS = URL_SERVER + "/api/tasks/online";
 }

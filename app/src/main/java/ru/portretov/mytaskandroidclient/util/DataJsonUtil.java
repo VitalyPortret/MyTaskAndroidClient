@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import ru.portretov.mytaskandroidclient.entity.Task;
 
@@ -56,6 +57,51 @@ public class DataJsonUtil {
                 }
                 if (bos != null) {
                     bos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static List<Task> getTasks(String stringUrl) throws IOException {
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+        BufferedReader reader = null;
+        URL url;
+
+        try {
+            url = new URL(stringUrl);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setDoInput(true);
+            connection.connect();
+
+            int httpResult = connection.getResponseCode();
+            if (httpResult == HttpURLConnection.HTTP_OK) {
+                inputStream  = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                return JSON.parseArray(stringBuilder.toString(), Task.class);
+            }
+            return null;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (reader != null) {
+                    reader.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
