@@ -1,19 +1,20 @@
 package ru.portretov.mytaskandroidclient.util;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import ru.portretov.mytaskandroidclient.entity.Task;
 
@@ -28,9 +29,8 @@ public class DataUtil {
         InputStream inputStream = null;
         BufferedReader reader = null;
         URL url;
-
         try {
-            url = new URL("http://192.168.0.102:8080/api/tasks/message");
+            url = new URL("http://10.0.2.2:8080/api/tasks/message");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("content-type", "application/json");
@@ -42,16 +42,22 @@ public class DataUtil {
             connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
-            DataOutputStream os = new DataOutputStream(connection.getOutputStream());
 
             JSONObject ap = new JSONObject();
             ap.put("text", "dfsfdsfdsfds");
             ap.put("id", "sddkshfuidsijfkdsokf");
             ap.put("delivered", true);
-//            connection.setRequestProperty("Content-Length", Integer.toString(taskString.getBytes("UTF-8").length));
-            os.writeBytes(URLEncoder.encode(ap.toString(), "UTF-8"));
-//            byte[] byteArray = taskString.getBytes("UTF-8");
 
+//            Заработало
+//            OutputStream os = connection.getOutputStream();
+//            byte[] data = ap.toString().getBytes("UTF-8");
+//            os.write(data);
+//            connection.connect();
+
+//          Заработало
+            BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
+            byte[] data = ap.toString().getBytes("UTF-8");
+            os.write(data);
             connection.connect();
             os.flush();
             os.close();
@@ -65,10 +71,9 @@ public class DataUtil {
                 while ((line = reader.readLine()) != null) {
                     stringBuilder.append(line);
                 }
-                os.close();
+                Log.e("str",stringBuilder.toString());
             }
 
-//
 //            return (Task) JSON.parse(stringBuilder.toString());
             return tasks[0];
         } catch (JSONException e) {
