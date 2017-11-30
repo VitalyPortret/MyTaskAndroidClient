@@ -22,7 +22,7 @@ import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChooseAlert
 import ru.portretov.mytaskandroidclient.entity.Task;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fManager;
     private FragmentTransaction fTransaction;
@@ -31,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     public Task getTask() {
         return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     @Override
@@ -47,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         toAlertFragment();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(this);
     }
 
     private void toAlertFragment() {
@@ -92,26 +88,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_post_task:
-                    return true;
-                case R.id.navigation_my_task:
-                    return true;
-                case R.id.navigation_browse:
-                    return true;
-                case R.id.navigation_messages:
-                    return true;
-                case R.id.navigation_profile:
-                    return true;
-            }
-            return false;
+        switch (item.getItemId()) {
+            case R.id.navigation_post_task:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.navigation_my_task:
+                intent = new Intent(this, PersonalTasksActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.navigation_browse:
+                intent = new Intent(this, BrowseTaskActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.navigation_messages:
+                return true;
+            case R.id.navigation_profile:
+                return true;
         }
-    };
+        return false;
+    }
 
     //Обработка запросов в фоновом потоке
     private class PostTaskAsync extends AsyncTask<Task, Void, Integer> {
