@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,12 +24,13 @@ import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
 import ru.portretov.mytaskandroidclient.util.ServerURL;
 import ru.portretov.mytaskandroidclient.util.TaskListAdapter;
+import ru.portretov.mytaskandroidclient.util.WidgetUtil;
 
 /**
  * Created by adminvp on 11/22/17.
  */
 
-public class PersonalTasksActivity extends AppCompatActivity {
+public class PersonalTasksActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private ListView taskListView;
     private TaskListAdapter taskListAdapter;
@@ -73,8 +76,15 @@ public class PersonalTasksActivity extends AppCompatActivity {
         };
 
         new GetMyTasks().execute(ServerURL.URL_ALL_TASKS);
-
         taskListView.setAdapter(taskListAdapter);
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return WidgetUtil.setBottomNavigationItemSelected(this, item);
     }
 
     private class GetMyTasks extends AsyncTask<String, Void, List<Task>> {

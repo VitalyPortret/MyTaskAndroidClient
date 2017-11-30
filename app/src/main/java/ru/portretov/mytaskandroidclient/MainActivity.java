@@ -3,6 +3,7 @@ package ru.portretov.mytaskandroidclient;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterTwoF
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChooseAlertFragment;
 import ru.portretov.mytaskandroidclient.entity.Task;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
+import ru.portretov.mytaskandroidclient.util.WidgetUtil;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         fManager = getFragmentManager();
         toAlertFragment();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
     }
 
@@ -94,27 +96,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent;
-
-        switch (item.getItemId()) {
-            case R.id.navigation_post_task:
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.navigation_my_task:
-                intent = new Intent(this, PersonalTasksActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.navigation_browse:
-                intent = new Intent(this, BrowseTaskActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.navigation_messages:
-                return true;
-            case R.id.navigation_profile:
-                return true;
-        }
-        return false;
+        return WidgetUtil.setBottomNavigationItemSelected(this, item);
     }
 
     //Обработка запросов в фоновом потоке
