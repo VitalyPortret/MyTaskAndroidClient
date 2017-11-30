@@ -3,21 +3,24 @@ package ru.portretov.mytaskandroidclient;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterOneFragment;
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterThreeFragment;
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterTwoFragment;
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChooseAlertFragment;
 import ru.portretov.mytaskandroidclient.entity.Task;
-import ru.portretov.mytaskandroidclient.util.DataUtil;
+import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,6 +80,18 @@ public class MainActivity extends AppCompatActivity {
         new PostTaskAsync().execute(task);
     }
 
+    private void processResult(int httpResult) {
+        if (httpResult == HttpURLConnection.HTTP_OK) {
+            Toast.makeText(this, "Задание успешно создано", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, BrowseTaskActivity.class);
+            startActivity(intent);
+        } else if (httpResult == HttpURLConnection.HTTP_INTERNAL_ERROR) {
+            Toast.makeText(this, "Ошибка, заполните допустимые поля", Toast.LENGTH_SHORT).show();
+        } else if (httpResult == HttpURLConnection.HTTP_BAD_REQUEST){
+            Toast.makeText(this, "Произошла непредвиденная ошибка", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -99,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     //Обработка запросов в фоновом потоке
-    private class PostTaskAsync extends AsyncTask<Task, Void, Task> {
+    private class PostTaskAsync extends AsyncTask<Task, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
@@ -107,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Task doInBackground(Task... tasks) {
+        protected Integer doInBackground(Task... tasks) {
             try {
-                return DataUtil.postTask(tasks[0]);
+                return DataJsonUtil.postTask(tasks[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -117,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Task result) {
-            super.onPostExecute(result);
-            task = result;
+        protected void onPostExecute(Integer httpResult) {
+            super.onPostExecute(httpResult);
+            processResult(httpResult);
         }
     }
 
