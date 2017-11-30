@@ -14,12 +14,17 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".PersonalTasksActivity"
+            android:label="Созданные задания"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".BrowseTaskActivity"
+            android:label="Просмотр заданий"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -28,8 +33,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".BrowseTaskActivity"
-            android:label="Просмотр заданий"
+            android:name=".LoginActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>
