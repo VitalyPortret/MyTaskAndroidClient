@@ -2,13 +2,18 @@ package ru.portretov.mytaskandroidclient.util;
 
 import com.alibaba.fastjson.JSON;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import ru.portretov.mytaskandroidclient.entity.Task;
 
@@ -25,29 +30,49 @@ public class DataUtil {
         URL url;
 
         try {
-            url = new URL(ServerURL.URL_POST_TASK);
+            url = new URL("http://192.168.0.102:8080/api/tasks/message");
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
+            connection.setRequestProperty("content-type", "application/json");
+            connection.setRequestProperty("accept-encoding", "gzip, deflate");
+            connection.setRequestProperty("accept-language", "en-US,en;q=0.8");
+            connection.setRequestProperty("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36");
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(15000);
+            connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
-            OutputStream os = connection.getOutputStream();
-            String taskString = JSON.toJSONString(tasks[0]);
+            DataOutputStream os = new DataOutputStream(connection.getOutputStream());
+
+            JSONObject ap = new JSONObject();
+            ap.put("text", "dfsfdsfdsfds");
+            ap.put("id", "sddkshfuidsijfkdsokf");
+            ap.put("delivered", true);
 //            connection.setRequestProperty("Content-Length", Integer.toString(taskString.getBytes("UTF-8").length));
-            byte[] byteArray = taskString.getBytes("UTF-8");
-            os.write(byteArray);
+            os.writeBytes(URLEncoder.encode(ap.toString(), "UTF-8"));
+//            byte[] byteArray = taskString.getBytes("UTF-8");
+
             connection.connect();
+            os.flush();
+            os.close();
 
-            inputStream  = connection.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder stringBuilder = new StringBuilder();
-
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
+            int HttpResult = connection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                inputStream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                os.close();
             }
-            return (Task) JSON.parse(stringBuilder.toString());
+
+//
+//            return (Task) JSON.parse(stringBuilder.toString());
+            return tasks[0];
+        } catch (JSONException e) {
+            e.printStackTrace();
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -63,5 +88,6 @@ public class DataUtil {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 }
