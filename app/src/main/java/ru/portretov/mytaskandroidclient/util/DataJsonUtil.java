@@ -1,7 +1,5 @@
 package ru.portretov.mytaskandroidclient.util;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 
 import java.io.BufferedOutputStream;
@@ -91,7 +89,6 @@ public class DataJsonUtil {
                 }
                 return JSON.parseArray(stringBuilder.toString(), Task.class);
             }
-            return null;
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -107,5 +104,52 @@ public class DataJsonUtil {
                 e.printStackTrace();
             }
         }
+        return null;
+    }
+
+    public static Task getTasksById(String stringUrl) throws IOException {
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+        BufferedReader reader = null;
+        URL url;
+
+        try {
+            url = new URL(stringUrl);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setDoInput(true);
+            connection.connect();
+
+            int httpResult = connection.getResponseCode();
+            if (httpResult == HttpURLConnection.HTTP_OK) {
+                inputStream  = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                Task task = JSON.parseObject(stringBuilder.toString(), Task.class);
+                return task;
+            }
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

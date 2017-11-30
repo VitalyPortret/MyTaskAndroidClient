@@ -1,6 +1,6 @@
 package ru.portretov.mytaskandroidclient;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +31,8 @@ import ru.portretov.mytaskandroidclient.util.WidgetUtil;
  * Created by adminvp on 11/22/17.
  */
 
-public class PersonalTasksActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class PersonalTasksActivity extends AppCompatActivity implements
+        BottomNavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
 
     private ListView taskListView;
     private TaskListAdapter taskListAdapter;
@@ -77,6 +79,7 @@ public class PersonalTasksActivity extends AppCompatActivity implements BottomNa
 
         new GetMyTasks().execute(ServerURL.URL_ALL_TASKS);
         taskListView.setAdapter(taskListAdapter);
+        taskListView.setOnItemClickListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -85,6 +88,13 @@ public class PersonalTasksActivity extends AppCompatActivity implements BottomNa
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return WidgetUtil.setBottomNavigationItemSelected(this, item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, DetailTaskActivity.class);
+        intent.putExtra("id", taskListAdapter.getItem(position).getId());
+        startActivity(intent);
     }
 
     private class GetMyTasks extends AsyncTask<String, Void, List<Task>> {

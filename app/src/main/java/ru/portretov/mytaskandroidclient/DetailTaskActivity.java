@@ -1,46 +1,65 @@
 package ru.portretov.mytaskandroidclient;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import java.io.IOException;
+import java.util.List;
+
+import ru.portretov.mytaskandroidclient.entity.Task;
+import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
+import ru.portretov.mytaskandroidclient.util.ServerURL;
+import ru.portretov.mytaskandroidclient.util.WidgetUtil;
+
 /**
  * Created by adminvp on 11/21/17.
  */
 
-public class DetailTaskActivity extends AppCompatActivity {
+public class DetailTaskActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_task);
+        Intent intent = getIntent();
+        final String idTask = intent.getStringExtra("id");
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+
+        new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return WidgetUtil.setBottomNavigationItemSelected(this, item);
     }
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private class GetTaskById extends AsyncTask<String, Void, Task> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_post_task:
-                    return true;
-                case R.id.navigation_my_task:
-                    return true;
-                case R.id.navigation_browse:
-                    return true;
-                case R.id.navigation_messages:
-                    return true;
-                case R.id.navigation_profile:
-                    return true;
+        protected Task doInBackground(String... urls) {
+            try {
+                return DataJsonUtil.getTasksById(urls[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            return false;
+            return null;
         }
-    };
 
+        @Override
+        protected void onPostExecute(Task task) {
+            super.onPostExecute(task);
+        }
+    }
 }
