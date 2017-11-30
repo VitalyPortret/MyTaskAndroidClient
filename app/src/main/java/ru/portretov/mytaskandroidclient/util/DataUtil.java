@@ -4,15 +4,12 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -27,40 +24,29 @@ public class DataUtil {
     public static Task postTask(Task... tasks) throws IOException {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
+        OutputStream outputStream = null;
         BufferedReader reader = null;
+        BufferedOutputStream bos = null;
         URL url;
+
         try {
-            url = new URL("http://10.0.2.2:8080/api/tasks/message");
+            url = new URL(ServerURL.URL_POST_TASK);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("content-type", "application/json");
-            connection.setRequestProperty("accept-encoding", "gzip, deflate");
-            connection.setRequestProperty("accept-language", "en-US,en;q=0.8");
-            connection.setRequestProperty("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36");
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(15000);
-            connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
-            JSONObject ap = new JSONObject();
-            ap.put("text", "dfsfdsfdsfds");
-            ap.put("id", "sddkshfuidsijfkdsokf");
-            ap.put("delivered", true);
+            String taskJsonString = JSON.toJSONString(tasks[0]);
+            outputStream = connection.getOutputStream();
 
-//            Заработало
-//            OutputStream os = connection.getOutputStream();
-//            byte[] data = ap.toString().getBytes("UTF-8");
-//            os.write(data);
-//            connection.connect();
-
-//          Заработало
-            BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
-            byte[] data = ap.toString().getBytes("UTF-8");
-            os.write(data);
+            bos = new BufferedOutputStream(outputStream);
+            byte[] data = taskJsonString.getBytes("UTF-8");
+            bos.write(data);
             connection.connect();
-            os.flush();
-            os.close();
+            bos.flush();
 
             int HttpResult = connection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
@@ -72,17 +58,19 @@ public class DataUtil {
                     stringBuilder.append(line);
                 }
                 Log.e("str",stringBuilder.toString());
+                return (Task) JSON.parse(stringBuilder.toString());
             }
-
-//            return (Task) JSON.parse(stringBuilder.toString());
-            return tasks[0];
-        } catch (JSONException e) {
-            e.printStackTrace();
         } finally {
             if (connection != null) {
                 connection.disconnect();
             }
             try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+                if (bos != null) {
+                    bos.close();
+                }
                 if (inputStream != null) {
                     inputStream.close();
                 }
