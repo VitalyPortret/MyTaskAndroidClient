@@ -73,19 +73,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void sendTaskToServer() {
-        new PostTaskAsync().execute(task);
+        new SendCreatedTask().execute(task);
     }
 
     private void processResult(int httpResult) {
         if (httpResult == HttpURLConnection.HTTP_OK) {
-            Toast.makeText(this, "Задание успешно создано", Toast.LENGTH_SHORT).show();
+            showToast( "Задание успешно создано");
             Intent intent = new Intent(this, BrowseTaskActivity.class);
             startActivity(intent);
         } else if (httpResult == HttpURLConnection.HTTP_INTERNAL_ERROR) {
-            Toast.makeText(this, "Ошибка, заполните допустимые поля", Toast.LENGTH_SHORT).show();
+            showToast( "Ошибка, заполните допустимые поля");
         } else if (httpResult == HttpURLConnection.HTTP_BAD_REQUEST){
-            Toast.makeText(this, "Произошла непредвиденная ошибка", Toast.LENGTH_SHORT).show();
+            showToast( "Произошла непредвиденная ошибка");
         }
+    }
+
+    private void showToast(String toastText){
+        Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -114,8 +118,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     //Обработка запросов в фоновом потоке
-    private class PostTaskAsync extends AsyncTask<Task, Void, Integer> {
-
+    private class SendCreatedTask extends AsyncTask<Task, Void, Integer> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -137,5 +140,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             processResult(httpResult);
         }
     }
-
 }
