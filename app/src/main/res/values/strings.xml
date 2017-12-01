@@ -25,5 +25,5 @@
 
     <string name="minimun_10_char">Минимум 10 символов</string>
     <string name="minimum_25_char">Минимум 25 символов</string>
-    <string name="Online">Online</string>
+    <string name="online">Online</string>
 </resources>

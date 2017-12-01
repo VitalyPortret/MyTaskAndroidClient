@@ -15,6 +15,7 @@ import ru.portretov.mytaskandroidclient.R;
 
 public class WidgetUtil {
 
+    //TODO: сделать чтобы не просто переходило по меню, но и отображалось куда перешло
     public static boolean setBottomNavigationItemSelected(Context context, MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {

@@ -1,7 +1,6 @@
 package ru.portretov.mytaskandroidclient;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -64,7 +63,7 @@ public class PersonalTasksActivity extends AppCompatActivity implements
                 tvTaskName.setText(task.getTitle());
 //                tvTaskCost.setText(String.format("%s", task.getBudget() + " ₽"));
                 if (task.getTaskType() == TaskType.ONLINE_TASK) {
-                    tvTaskAddressOrOnline.setText(R.string.Online);
+                    tvTaskAddressOrOnline.setText(R.string.online);
                 } else if (task.getTaskType() == TaskType.TASK_WITH_LOCATION) {
                     tvTaskAddressOrOnline.setText(String.format("%s", task.getLocation()));
                 }
