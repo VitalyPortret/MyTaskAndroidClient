@@ -14,6 +14,8 @@ public class Task {
 
     private Date dueDate;
 
+    private Date publicationDate;
+
     private String taskStatus;
 
     private TaskType taskType;
@@ -114,5 +116,13 @@ public class Task {
 
     public void setBudget(double budget) {
         this.budget = budget;
+    }
+
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
     }
 }

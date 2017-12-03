@@ -61,7 +61,7 @@ public class PersonalTasksActivity extends AppCompatActivity implements
 
                 Task task = getTasks().get(position);
                 tvTaskName.setText(task.getTitle());
-//                tvTaskCost.setText(String.format("%s", task.getBudget() + " ₽"));
+                tvTaskCost.setText(String.format("%s", Math.round(task.getBudget()) + " ₽"));
                 if (task.getTaskType() == TaskType.ONLINE_TASK) {
                     tvTaskAddressOrOnline.setText(R.string.online);
                 } else if (task.getTaskType() == TaskType.TASK_WITH_LOCATION) {
@@ -96,6 +96,11 @@ public class PersonalTasksActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
+    private void repeatedRequest() {
+        //TODO: Дописать вывод кнопки с перезапросом и картинки
+    }
+
+
     private class GetMyTasks extends AsyncTask<String, Void, List<Task>> {
 
         @Override
@@ -119,6 +124,8 @@ public class PersonalTasksActivity extends AppCompatActivity implements
             if (result != null) {
                 taskListAdapter.addAll(result);
                 taskListAdapter.notifyDataSetChanged();
+            } else {
+                repeatedRequest();
             }
         }
     }
