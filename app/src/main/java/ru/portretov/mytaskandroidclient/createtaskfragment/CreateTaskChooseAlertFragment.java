@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import ru.portretov.mytaskandroidclient.MainActivity;
 import ru.portretov.mytaskandroidclient.R;
-import ru.portretov.mytaskandroidclient.entity.Task;
 
 /**
  * Created by adminvp on 11/24/17.
@@ -26,50 +25,50 @@ public class CreateTaskChooseAlertFragment extends Fragment implements View.OnCl
     }
 
     private void setImageViewOnClick(View view ) {
-        view.findViewById(R.id.imageView1).setOnClickListener(this);
-        view.findViewById(R.id.imageView2).setOnClickListener(this);
-        view.findViewById(R.id.imageView3).setOnClickListener(this);
-        view.findViewById(R.id.imageView4).setOnClickListener(this);
-        view.findViewById(R.id.imageView5).setOnClickListener(this);
-        view.findViewById(R.id.imageView6).setOnClickListener(this);
-        view.findViewById(R.id.imageView7).setOnClickListener(this);
-        view.findViewById(R.id.imageView8).setOnClickListener(this);
-        view.findViewById(R.id.imageView9).setOnClickListener(this);
-        view.findViewById(R.id.imageView10).setOnClickListener(this);
+        view.findViewById(R.id.ivClean).setOnClickListener(this);
+        view.findViewById(R.id.ivAsembly).setOnClickListener(this);
+        view.findViewById(R.id.ivHandyman).setOnClickListener(this);
+        view.findViewById(R.id.ivDelivery).setOnClickListener(this);
+        view.findViewById(R.id.ivGardening).setOnClickListener(this);
+        view.findViewById(R.id.ivRemovalists).setOnClickListener(this);
+        view.findViewById(R.id.ivAdmin).setOnClickListener(this);
+        view.findViewById(R.id.ivITcomp).setOnClickListener(this);
+        view.findViewById(R.id.ivPhoto).setOnClickListener(this);
+        view.findViewById(R.id.ivAnyhingElse).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         String alert = null;
         switch (v.getId()){
-            case R.id.imageView1:
+            case R.id.ivClean:
                 alert = "CLEANING";
                 break;
-            case R.id.imageView2:
+            case R.id.ivAsembly:
                 alert = "ASSEMBLY";
                 break;
-            case R.id.imageView3:
+            case R.id.ivHandyman:
                 alert = "HANDYMAN";
                 break;
-            case R.id.imageView4:
+            case R.id.ivDelivery:
                 alert = "DELIVERY";
                 break;
-            case R.id.imageView5:
+            case R.id.ivGardening:
                 alert = "GARDENING";
                 break;
-            case R.id.imageView6:
+            case R.id.ivRemovalists:
                 alert = "REMOVALISTS";
                 break;
-            case R.id.imageView7:
+            case R.id.ivAdmin:
                 alert = "ADMIN";
                 break;
-            case R.id.imageView8:
+            case R.id.ivITcomp:
                 alert = "COMPUTER_IT";
                 break;
-            case R.id.imageView9:
+            case R.id.ivPhoto:
                 alert = "PHOTOGRAPHY";
                 break;
-            case R.id.imageView10:
+            case R.id.ivAnyhingElse:
                 alert = "ANYTHING_ELSE";
                 break;
         }

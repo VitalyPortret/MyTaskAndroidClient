@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class CreateTaskChapterOneFragment extends Fragment {
 
     private EditText etTitle, etDescription, etLocation;
     private Switch switchTaskType;
-    private TextView tvTitleLength, tvDescriptionLength;
+    private TextView tvTitleLength, tvDescriptionLength, tvLocation;
 
 
     @Override
@@ -43,6 +44,7 @@ public class CreateTaskChapterOneFragment extends Fragment {
         switchTaskType = view.findViewById(R.id.switchTaskType);
         tvTitleLength = view.findViewById(R.id.tvTitleLength);
         tvDescriptionLength = view.findViewById(R.id.tvDescriptionLength);
+        tvLocation = view.findViewById(R.id.tvLocation);
 
         //При изменение текста изменяется TextView в котором написано сколько введено символов
         etTitle.addTextChangedListener(new AfterChangeTextWatcher() {
@@ -66,6 +68,19 @@ public class CreateTaskChapterOneFragment extends Fragment {
                     tvDescriptionLength.setText(String.format("Осталось %d символов", TASK_MAX_DESCRIPTION - str.length()));
                 } else {
                     tvDescriptionLength.setText("");
+                }
+            }
+        });
+
+        switchTaskType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tvLocation.setVisibility(View.GONE);
+                    etLocation.setVisibility(View.GONE);
+                } else {
+                    tvLocation.setVisibility(View.VISIBLE);
+                    etLocation.setVisibility(View.VISIBLE);
                 }
             }
         });

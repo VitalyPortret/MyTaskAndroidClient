@@ -28,118 +28,139 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="115dp"
                 android:layout_marginBottom="@dimen/margin_row"
-                android:orientation="horizontal">
+                android:weightSum="99">
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/ivClean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_clean" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/ivAsembly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_row"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_asembly" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/ivHandyman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_row"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_handyman" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="115dp"
                 android:layout_marginBottom="@dimen/margin_row"
-                android:orientation="horizontal">
+                android:weightSum="99">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/ivDelivery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_delivery" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/ivGardening"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_row"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_gardening" />
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/ivRemovalists"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_row"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_removalists" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="115dp"
                 android:layout_marginBottom="@dimen/margin_row"
-                android:orientation="horizontal">
+                android:weightSum="99">
 
                 <ImageView
-                    android:id="@+id/imageView7"
+                    android:id="@+id/ivAdmin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_admin" />
 
                 <ImageView
-                    android:id="@+id/imageView8"
+                    android:id="@+id/ivITcomp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_row"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_it_comp" />
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/ivPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_row"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_photo" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="115dp"
                 android:layout_marginBottom="@dimen/margin_row"
-                android:orientation="horizontal">
+                android:weightSum="99">
 
                 <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/imageViewSpace"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_row"
-                android:orientation="horizontal">
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"/>
 
                 <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/ivAnyhingElse"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="33"
+                    android:src="@drawable/a_anyhing_else" />
 
             </LinearLayout>
 
