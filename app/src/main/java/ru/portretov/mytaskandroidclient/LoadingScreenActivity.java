@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class LoadingScreenActivity extends AppCompatActivity {
 
-    private final int WELCOME_SCREEN_DELAY = 5000;
+    private final int WELCOME_SCREEN_DELAY = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

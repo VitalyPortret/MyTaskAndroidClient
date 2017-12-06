@@ -1,6 +1,7 @@
 package ru.portretov.mytaskandroidclient;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import java.util.List;
 import ru.portretov.mytaskandroidclient.entity.Task;
 import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
+import ru.portretov.mytaskandroidclient.util.ImageUtil;
 import ru.portretov.mytaskandroidclient.util.ServerURL;
 import ru.portretov.mytaskandroidclient.util.TaskListAdapter;
 import ru.portretov.mytaskandroidclient.util.WidgetUtil;
@@ -58,6 +60,8 @@ public class PersonalTasksActivity extends AppCompatActivity implements
                 tvTaskAddressOrOnline = convertView.findViewById(R.id.tvTaskAddressOrOnline);
                 tvTaskOffersAndComments = convertView.findViewById(R.id.tvTaskOffersAndComments);
                 tvTaskCost = convertView.findViewById(R.id.tvTaskCost);
+                ivTaskerPhoto = convertView.findViewById(R.id.ivTaskerPhoto);
+
 
                 Task task = getTasks().get(position);
                 tvTaskName.setText(task.getTitle());
@@ -68,10 +72,13 @@ public class PersonalTasksActivity extends AppCompatActivity implements
                     tvTaskAddressOrOnline.setText(String.format("%s", task.getLocation()));
                 }
 
-//                if (task.getImage() != null) {
-//                    Bitmap bitmap = ImageUtil.createBitmapFromByteArray(task.getImage());
-//                    ivGiftList.setImageBitmap(bitmap);
-//                }
+                if (task.getCreator() != null && task.getCreator().getImage() != null
+                        && task.getCreator().getImage().getImageData() != null) {
+
+                    Bitmap bitmap = ImageUtil.createBitmapFromByteArray(
+                            task.getCreator().getImage().getImageData());
+                    ivTaskerPhoto.setImageBitmap(bitmap);
+                }
                 return convertView;
             }
         };

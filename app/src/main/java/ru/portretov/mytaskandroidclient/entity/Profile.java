@@ -1,7 +1,5 @@
 package ru.portretov.mytaskandroidclient.entity;
 
-import java.util.Date;
-
 public class Profile {
 
     private String firstName;
@@ -11,8 +9,6 @@ public class Profile {
     private String miniBio;
 
     private String location;
-
-    private Date birthday;
 
     private Integer age;
 
@@ -58,14 +54,6 @@ public class Profile {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public Integer getAge() {

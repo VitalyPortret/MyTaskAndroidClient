@@ -30,6 +30,8 @@ public class Task {
 
     private double budget;
 
+    private Profile creator;
+
     public String getId() {
         return id;
     }
@@ -124,5 +126,13 @@ public class Task {
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public Profile getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Profile creator) {
+        this.creator = creator;
     }
 }
