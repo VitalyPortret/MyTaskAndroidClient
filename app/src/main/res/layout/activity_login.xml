@@ -8,21 +8,22 @@
     tools:context="ru.portretov.mytaskandroidclient.LoginActivity"
     tools:layout_editor_absoluteY="81dp">
 
-
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/login_background_image"
+        android:id="@+id/imageViewLogo"
+        android:layout_width="220dp"
+        android:layout_height="206dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:layout_constraintVertical_bias="0.459"
+        app:srcCompat="@drawable/ic_rocket" />
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnStart"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"

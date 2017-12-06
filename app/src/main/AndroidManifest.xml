@@ -12,10 +12,6 @@
             android:name=".MainActivity"
             android:label="Опубликовать задание"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".PersonalTasksActivity"
@@ -33,7 +29,18 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".LoadingScreenActivity"
+            android:label="Информация о задании"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".LoginActivity"
+            android:label=""
             android:screenOrientation="portrait">
         </activity>
     </application>
