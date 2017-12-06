@@ -31,12 +31,7 @@ public class WidgetUtil {
                 intent = new Intent(context, BrowseTaskActivity.class);
                 context.startActivity(intent);
                 return true;
-            case R.id.navigation_messages:
-                return true;
-            case R.id.navigation_profile:
-                return true;
         }
         return true;
     }
-
 }

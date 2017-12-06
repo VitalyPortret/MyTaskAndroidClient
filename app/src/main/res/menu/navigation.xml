@@ -16,14 +16,14 @@
         android:icon="@drawable/ic_search"
         android:title="@string/browse" />
 
-    <item
-        android:id="@+id/navigation_messages"
-        android:icon="@drawable/ic_mail"
-        android:title="@string/messages" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_messages"-->
+        <!--android:icon="@drawable/ic_mail"-->
+        <!--android:title="@string/messages" />-->
 
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_users"
-        android:title="@string/profile" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_profile"-->
+        <!--android:icon="@drawable/ic_users"-->
+        <!--android:title="@string/profile" />-->
 
 </menu>

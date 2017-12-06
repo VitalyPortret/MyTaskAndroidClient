@@ -3,7 +3,6 @@ package ru.portretov.mytaskandroidclient;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChapterTwoF
 import ru.portretov.mytaskandroidclient.createtaskfragment.CreateTaskChooseAlertFragment;
 import ru.portretov.mytaskandroidclient.entity.Task;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
-import ru.portretov.mytaskandroidclient.util.WidgetUtil;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -96,7 +94,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return WidgetUtil.setBottomNavigationItemSelected(this, item);
+        switch (item.getItemId()) {
+            case R.id.navigation_post_task:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.navigation_my_task:
+                startActivity(new Intent(this, PersonalTasksActivity.class));
+                return true;
+            case R.id.navigation_browse:
+                startActivity(new Intent(this, BrowseTaskActivity.class));
+                return true;
+        }
+        finish();
+        return true;
     }
 
     //Обработка запросов в фоновом потоке
