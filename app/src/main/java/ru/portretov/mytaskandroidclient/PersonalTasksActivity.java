@@ -20,6 +20,7 @@ import java.util.List;
 import ru.portretov.mytaskandroidclient.entity.Task;
 import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
+import ru.portretov.mytaskandroidclient.util.DownScrollListener;
 import ru.portretov.mytaskandroidclient.util.ImageUtil;
 import ru.portretov.mytaskandroidclient.util.ServerURL;
 import ru.portretov.mytaskandroidclient.util.TaskListAdapter;
@@ -81,9 +82,22 @@ public class PersonalTasksActivity extends BottomNavigationStateActivity impleme
             }
         };
 
-        new GetMyTasks().execute(ServerURL.URL_ALL_TASKS);
+        new GetMyTasks().execute(ServerURL.URL_MY_TASKS);
         taskListView.setAdapter(taskListAdapter);
         taskListView.setOnItemClickListener(this);
+
+//        TODO: Пока не нужен, подключить когда нужен будет
+//        taskListView.setOnScrollListener(new DownScrollListener<Task>(taskListView, taskListAdapter, 3) {
+//            @Override
+//            public void onLoadMore(int page) {
+//                new GetMyTasks().execute(ServerURL.URL_MY_TASKS + "?page=" + page);
+//            }
+//
+//            @Override
+//            public boolean onUpdatePage() {
+//                return false;
+//            }
+//        });
     }
 
     @Override

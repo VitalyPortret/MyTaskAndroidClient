@@ -22,9 +22,7 @@ public class MainActivity extends BottomNavigationStateActivity {
 
     private FragmentManager fManager;
     private FragmentTransaction fTransaction;
-
     private Task task;
-
     public Task getTask() {
         return task;
     }
@@ -76,7 +74,7 @@ public class MainActivity extends BottomNavigationStateActivity {
     private void processResult(int httpResult) {
         if (httpResult == HttpURLConnection.HTTP_OK) {
             showToast( "Задание успешно создано");
-            Intent intent = new Intent(this, BrowseTaskActivity.class);
+            Intent intent = new Intent(this, PersonalTasksActivity.class);
             startActivity(intent);
         } else if (httpResult == HttpURLConnection.HTTP_INTERNAL_ERROR) {
             showToast( "Ошибка, заполните допустимые поля");
