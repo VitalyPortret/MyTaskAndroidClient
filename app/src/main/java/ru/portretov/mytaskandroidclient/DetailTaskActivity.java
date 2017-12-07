@@ -1,14 +1,10 @@
 package ru.portretov.mytaskandroidclient;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,19 +14,21 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import ru.portretov.mytaskandroidclient.entity.Profile;
 import ru.portretov.mytaskandroidclient.entity.Task;
 import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
+import ru.portretov.mytaskandroidclient.util.ImageUtil;
 import ru.portretov.mytaskandroidclient.util.ServerURL;
-import ru.portretov.mytaskandroidclient.util.WidgetUtil;
 
 /**
  * Created by adminvp on 11/21/17.
  */
 
-public class DetailTaskActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class DetailTaskActivity extends BottomNavigationStateActivity {
 
     private TextView tvTitle, tvUserName, tvAddress, tvDueDate, tvPrice, tvDescription;
+    private ImageView ivTaskerPhoto;
     private LinearLayout llDetailTask;
     private String idTask;
 
@@ -41,7 +39,10 @@ public class DetailTaskActivity extends AppCompatActivity implements BottomNavig
         Intent intent = getIntent();
         idTask = intent.getStringExtra("id");
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        bottomNavigation = findViewById(R.id.navigation);
+        updateBottomNavigationViewState();
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
+
         tvTitle = findViewById(R.id.tvTitle);
         tvUserName = findViewById(R.id.tvUserName);
         tvAddress = findViewById(R.id.tvAddress);
@@ -49,10 +50,14 @@ public class DetailTaskActivity extends AppCompatActivity implements BottomNavig
         tvPrice = findViewById(R.id.tvPrice);
         tvDescription = findViewById(R.id.tvDescription);
         llDetailTask = findViewById(R.id.llDetailTask);
-
-        navigation.setOnNavigationItemSelectedListener(this);
+        ivTaskerPhoto = findViewById(R.id.ivTaskerPhoto);
 
         new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
+    }
+
+    @Override
+    protected int getNavigationMenuItemId() {
+        return R.id.navigation_my_task;
     }
 
     public void fillWidget(Task task){
@@ -92,11 +97,15 @@ public class DetailTaskActivity extends AppCompatActivity implements BottomNavig
         tvDueDate.setText(task.getDueDate().toString());
         tvPrice.setText(String.format("%s", task.getBudget() + " ₽"));
         tvDescription.setText(task.getDescription());
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return WidgetUtil.setBottomNavigationItemSelected(this, item);
+        Profile creator = task.getCreator();
+        if (creator != null) {
+            tvUserName.setText(String.format("%s %s", creator.getFirstName(), creator.getLastName()));
+            if (creator.getImage() != null && creator.getImage().getImageData() != null) {
+                Bitmap bitmap = ImageUtil.createBitmapFromByteArray(
+                        task.getCreator().getImage().getImageData());
+                ivTaskerPhoto.setImageBitmap(bitmap);
+            }
+        }
     }
 
     private class GetTaskById extends AsyncTask<String, Void, Task> {

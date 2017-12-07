@@ -6,9 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,14 +23,12 @@ import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
 import ru.portretov.mytaskandroidclient.util.ImageUtil;
 import ru.portretov.mytaskandroidclient.util.ServerURL;
 import ru.portretov.mytaskandroidclient.util.TaskListAdapter;
-import ru.portretov.mytaskandroidclient.util.WidgetUtil;
 
 /**
  * Created by adminvp on 11/22/17.
  */
 
-public class PersonalTasksActivity extends AppCompatActivity implements
-        BottomNavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+public class PersonalTasksActivity extends BottomNavigationStateActivity implements AdapterView.OnItemClickListener {
 
     private ListView taskListView;
     private TaskListAdapter taskListAdapter;
@@ -42,6 +37,10 @@ public class PersonalTasksActivity extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_tasks);
+
+        bottomNavigation = findViewById(R.id.navigation);
+        updateBottomNavigationViewState();
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
 
         taskListView = findViewById(R.id.taskListView);
 
@@ -61,7 +60,6 @@ public class PersonalTasksActivity extends AppCompatActivity implements
                 tvTaskOffersAndComments = convertView.findViewById(R.id.tvTaskOffersAndComments);
                 tvTaskCost = convertView.findViewById(R.id.tvTaskCost);
                 ivTaskerPhoto = convertView.findViewById(R.id.ivTaskerPhoto);
-
 
                 Task task = getTasks().get(position);
                 tvTaskName.setText(task.getTitle());
@@ -86,14 +84,11 @@ public class PersonalTasksActivity extends AppCompatActivity implements
         new GetMyTasks().execute(ServerURL.URL_ALL_TASKS);
         taskListView.setAdapter(taskListAdapter);
         taskListView.setOnItemClickListener(this);
-
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return WidgetUtil.setBottomNavigationItemSelected(this, item);
+    protected int getNavigationMenuItemId() {
+        return R.id.navigation_my_task;
     }
 
     @Override
@@ -106,7 +101,6 @@ public class PersonalTasksActivity extends AppCompatActivity implements
     private void repeatedRequest() {
         //TODO: Дописать вывод кнопки с перезапросом и картинки
     }
-
 
     private class GetMyTasks extends AsyncTask<String, Void, List<Task>> {
 

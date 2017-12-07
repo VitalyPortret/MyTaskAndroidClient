@@ -5,9 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,14 +21,12 @@ import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
 import ru.portretov.mytaskandroidclient.util.DataJsonUtil;
 import ru.portretov.mytaskandroidclient.util.ServerURL;
 import ru.portretov.mytaskandroidclient.util.TaskListAdapter;
-import ru.portretov.mytaskandroidclient.util.WidgetUtil;
 
 /**
  * Created by adminvp on 11/22/17.
  */
 
-public class BrowseTaskActivity extends AppCompatActivity implements
-        BottomNavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+public class BrowseTaskActivity extends BottomNavigationStateActivity implements AdapterView.OnItemClickListener {
 
     private ListView taskListView;
     private TaskListAdapter taskListAdapter;
@@ -40,6 +35,10 @@ public class BrowseTaskActivity extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_task);
+
+        bottomNavigation = findViewById(R.id.navigation);
+        updateBottomNavigationViewState();
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
 
         taskListView = findViewById(R.id.taskListView);
 
@@ -77,13 +76,12 @@ public class BrowseTaskActivity extends AppCompatActivity implements
         };
 
         new GetMyTasks().execute(ServerURL.URL_ALL_TASKS);
-
         taskListView.setAdapter(taskListAdapter);
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return WidgetUtil.setBottomNavigationItemSelected(this, item);
+    protected int getNavigationMenuItemId() {
+        return R.id.navigation_browse;
     }
 
     @Override
@@ -94,7 +92,6 @@ public class BrowseTaskActivity extends AppCompatActivity implements
     }
 
     private class GetMyTasks extends AsyncTask<String, Void, List<Task>> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
