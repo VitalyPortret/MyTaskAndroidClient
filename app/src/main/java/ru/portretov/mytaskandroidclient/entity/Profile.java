@@ -2,6 +2,8 @@ package ru.portretov.mytaskandroidclient.entity;
 
 public class Profile {
 
+    private String id;
+
     private String firstName;
 
     private String lastName;
@@ -23,6 +25,14 @@ public class Profile {
     private Double executeRating;
 
     private Image image;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

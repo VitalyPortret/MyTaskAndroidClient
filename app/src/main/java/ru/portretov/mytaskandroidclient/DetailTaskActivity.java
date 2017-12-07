@@ -14,6 +14,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import ru.portretov.mytaskandroidclient.entity.Profile;
 import ru.portretov.mytaskandroidclient.entity.Task;
@@ -28,12 +33,13 @@ import ru.portretov.mytaskandroidclient.util.ServerURL;
 
 public class DetailTaskActivity extends BottomNavigationStateActivity {
 
-    private TextView tvTitle, tvUserName, tvAddress, tvDueDate, tvPrice, tvDescription, tvPublicationDate;
-    private ImageView ivTaskerPhoto, ivTaskAlert, ivError;
-    private Button btnRefreshError, btnAccept;
-    private LinearLayout llDetailTask;
+    private TextView tvTitle, tvUserName, tvAddress,
+            tvDueDate, tvPrice, tvDescription, tvPublicationDate,
+            tvExecutorName, tvExecutorAddress;
+    private ImageView ivTaskerPhoto, ivTaskAlert, ivExecutorTaskerPhoto;
+    private Button  btnAccept;
+    private LinearLayout llExecutor;
     private String idTask;
-    private ScrollView scrollDetailTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +47,6 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         setContentView(R.layout.activity_detail_task);
         Intent intent = getIntent();
         idTask = intent.getStringExtra("id");
-
-        createWidgets();
-
-        bottomNavigation = findViewById(R.id.navigation);
-        updateBottomNavigationViewState();
-        bottomNavigation.setOnNavigationItemSelectedListener(this);
-
-        new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
-    }
-
-    private void createWidgets() {
-        scrollDetailTask = findViewById(R.id.scrollDetailTask);
-        llDetailTask = findViewById(R.id.llDetailTask);
 
         tvTitle = findViewById(R.id.tvTitle);
         tvUserName = findViewById(R.id.tvUserName);
@@ -73,6 +66,18 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
                 new GetTaskById().execute(ServerURL.URL_EXECUTOR_TASKS + idTask);
             }
         });
+
+        bottomNavigation = findViewById(R.id.navigation);
+        updateBottomNavigationViewState();
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
+
+        llExecutor = findViewById(R.id.llExecutor);
+        ivExecutorTaskerPhoto = findViewById(R.id.ivExecutorTaskerPhoto);
+
+        tvExecutorName = findViewById(R.id.tvExecutorName);
+        tvExecutorAddress = findViewById(R.id.tvExecutorAddress);
+
+        new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
     }
 
     @Override
@@ -81,36 +86,7 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
     }
 
     public void fillWidget(Task task){
-        //Делаю видемым, если Task не пришел, и элемент был невидем
-        llDetailTask.setVisibility(View.VISIBLE);
-
         if (task == null) {
-            ivError = new ImageView(this);
-            ivError.setBackgroundColor(Color.RED);
-            ivError.setImageResource(R.drawable.astronaut_error);
-            ivError.setScaleType(ImageView.ScaleType.FIT_XY);
-            ivError.layout(0, 0, 100, 0);
-            ivError.setLayoutParams(
-                    new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-            );
-            btnRefreshError = new Button(this);
-            btnRefreshError.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            btnRefreshError.setText("Refresh");
-            btnRefreshError.layout(0, 0, 100, 0);
-            btnRefreshError.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
-                }
-            });
-
-            llDetailTask.setVisibility(View.GONE);
-
-            scrollDetailTask.addView(ivError);
-            scrollDetailTask.addView(btnRefreshError);
             return;
         }
 
@@ -121,14 +97,32 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         } else {
             tvAddress.setText(task.getLocation());
         }
+
         if (task.getExecutor() != null) {
+            //TODO: Удалить и заполнять не поля, а списки ListView
+            Profile executor = task.getExecutor();
             btnAccept.setVisibility(View.GONE);
+            llExecutor.setVisibility(View.VISIBLE);
+            if (executor.getImage() != null && executor.getImage().getImageData() != null) {
+                Bitmap bitmap = ImageUtil.createBitmapFromByteArray(executor.getImage().getImageData());
+                ivExecutorTaskerPhoto.setImageBitmap(bitmap);
+            }
+
+            tvExecutorName.setText(String.format("%s %s", executor.getFirstName(), executor.getLastName()));
+            tvExecutorAddress.setText(executor.getLocation());
+
+        } else if (task.getCreator() != null && task.getCreator().getId() != null &&
+                task.getCreator().getId().equals("cebe7767-c4cc-9799-ar87-f821f1d9")) {
+            //TODO: Удалить task.getId().equals("cebe7767-c4cc-9799-ar87-f821f1d9")
+            btnAccept.setVisibility(View.GONE);
+
         } else {
             btnAccept.setVisibility(View.VISIBLE);
+            llExecutor.setVisibility(View.GONE);
         }
         //todo: Изменить адрес на адекватный и добавить картинки
-        tvDueDate.setText(task.getDueDate().toString());
-        tvPublicationDate.setText(task.getPublicationDate().toString());
+        tvDueDate.setText(getDateString(task.getDueDate()));
+        tvPublicationDate.setText(getDateString(task.getPublicationDate()));
         tvPrice.setText(String.format("%s", task.getBudget() + " ₽"));
         tvDescription.setText(task.getDescription());
         ivTaskAlert.setImageResource(ImageUtil.getTaskAlertImageRes(task.getAlert()));
@@ -136,11 +130,19 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         if (creator != null) {
             tvUserName.setText(String.format("%s %s", creator.getFirstName(), creator.getLastName()));
             if (creator.getImage() != null && creator.getImage().getImageData() != null) {
-                Bitmap bitmap = ImageUtil.createBitmapFromByteArray(
-                        task.getCreator().getImage().getImageData());
+                Bitmap bitmap = ImageUtil.createBitmapFromByteArray(creator.getImage().getImageData());
                 ivTaskerPhoto.setImageBitmap(bitmap);
             }
         }
+    }
+
+    private String getDateString(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return String.format("%d/%d/%d", day, month, year);
     }
 
     private class GetTaskById extends AsyncTask<String, Void, Task> {

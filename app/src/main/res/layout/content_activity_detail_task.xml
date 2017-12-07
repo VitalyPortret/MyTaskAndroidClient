@@ -112,8 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_row"
-                    android:layout_marginLeft="@dimen/left_margin_task_detail"
                     android:layout_marginTop="15dp"
+                    android:textSize="12sp"
                     android:text="Дата" />
 
             </LinearLayout>
@@ -293,14 +293,56 @@
                 android:background="@color/colorMiddleGrey"
                 android:text="СОГЛАСИВШИЕСЯ" />
 
-            <ListView
-                android:id="@+id/lvOffers"
+            <!--TODO: Изменить на ListView, и сделать кастомный итем-->
+            <LinearLayout
+                android:id="@+id/llExecutor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivExecutorTaskerPhoto"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="7dp"
+                    app:srcCompat="@drawable/ic_user" />
+
+                <LinearLayout
+                    android:layout_width="175dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/tvExecutorName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:textColor="@color/colorDark2"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/tvExecutorAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/colorDark1"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
