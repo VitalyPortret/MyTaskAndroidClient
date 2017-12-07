@@ -2,6 +2,7 @@ package ru.portretov.mytaskandroidclient.entity;
 
 import java.util.Date;
 
+import ru.portretov.mytaskandroidclient.entity.enumirate.Alert;
 import ru.portretov.mytaskandroidclient.entity.enumirate.TaskType;
 
 public class Task {
@@ -20,7 +21,7 @@ public class Task {
 
     private TaskType taskType;
 
-    private String alert;
+    private Alert alert;
 
     private String location;
 
@@ -80,11 +81,11 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public String getAlert() {
+    public Alert getAlert() {
         return alert;
     }
 
-    public void setAlert(String alert) {
+    public void setAlert(Alert alert) {
         this.alert = alert;
     }
 

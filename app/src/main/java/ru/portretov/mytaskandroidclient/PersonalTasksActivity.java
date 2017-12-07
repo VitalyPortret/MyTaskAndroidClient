@@ -61,6 +61,7 @@ public class PersonalTasksActivity extends BottomNavigationStateActivity impleme
                 tvTaskOffersAndComments = convertView.findViewById(R.id.tvTaskOffersAndComments);
                 tvTaskCost = convertView.findViewById(R.id.tvTaskCost);
                 ivTaskerPhoto = convertView.findViewById(R.id.ivTaskerPhoto);
+                ivTaskStatus = convertView.findViewById(R.id.ivTaskStatus);
 
                 Task task = getTasks().get(position);
                 tvTaskName.setText(task.getTitle());
@@ -70,7 +71,7 @@ public class PersonalTasksActivity extends BottomNavigationStateActivity impleme
                 } else if (task.getTaskType() == TaskType.TASK_WITH_LOCATION) {
                     tvTaskAddressOrOnline.setText(String.format("%s", task.getLocation()));
                 }
-
+                ivTaskStatus.setImageResource(ImageUtil.getTaskStatusImageRes(task.getTaskStatus()));
                 if (task.getCreator() != null && task.getCreator().getImage() != null
                         && task.getCreator().getImage().getImageData() != null) {
 

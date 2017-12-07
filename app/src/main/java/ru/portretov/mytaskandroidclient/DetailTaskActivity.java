@@ -27,8 +27,8 @@ import ru.portretov.mytaskandroidclient.util.ServerURL;
 
 public class DetailTaskActivity extends BottomNavigationStateActivity {
 
-    private TextView tvTitle, tvUserName, tvAddress, tvDueDate, tvPrice, tvDescription;
-    private ImageView ivTaskerPhoto;
+    private TextView tvTitle, tvUserName, tvAddress, tvDueDate, tvPrice, tvDescription, tvPublicationDate;
+    private ImageView ivTaskerPhoto, ivTaskAlert;
     private LinearLayout llDetailTask;
     private String idTask;
 
@@ -47,10 +47,12 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         tvUserName = findViewById(R.id.tvUserName);
         tvAddress = findViewById(R.id.tvAddress);
         tvDueDate = findViewById(R.id.tvDueDate);
+        tvPublicationDate = findViewById(R.id.tvPublicationDate);
         tvPrice = findViewById(R.id.tvPrice);
         tvDescription = findViewById(R.id.tvDescription);
         llDetailTask = findViewById(R.id.llDetailTask);
         ivTaskerPhoto = findViewById(R.id.ivTaskerPhoto);
+        ivTaskAlert = findViewById(R.id.ivTaskAlert);
 
         new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
     }
@@ -95,8 +97,10 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         }
         //todo: Изменить адрес на адекватный и добавить картинки
         tvDueDate.setText(task.getDueDate().toString());
+        tvPublicationDate.setText(task.getPublicationDate().toString());
         tvPrice.setText(String.format("%s", task.getBudget() + " ₽"));
         tvDescription.setText(task.getDescription());
+        ivTaskAlert.setImageResource(ImageUtil.getTaskAlertImageRes(task.getAlert()));
         Profile creator = task.getCreator();
         if (creator != null) {
             tvUserName.setText(String.format("%s %s", creator.getFirstName(), creator.getLastName()));

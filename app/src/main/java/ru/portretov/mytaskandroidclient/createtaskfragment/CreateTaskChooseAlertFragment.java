@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import ru.portretov.mytaskandroidclient.MainActivity;
 import ru.portretov.mytaskandroidclient.R;
+import ru.portretov.mytaskandroidclient.entity.enumirate.Alert;
 
 /**
  * Created by adminvp on 11/24/17.
@@ -39,37 +40,37 @@ public class CreateTaskChooseAlertFragment extends Fragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        String alert = null;
+        Alert alert = null;
         switch (v.getId()){
             case R.id.ivClean:
-                alert = "CLEANING";
+                alert = Alert.CLEANING;
                 break;
             case R.id.ivAsembly:
-                alert = "ASSEMBLY";
+                alert = Alert.ASSEMBLY;
                 break;
             case R.id.ivHandyman:
-                alert = "HANDYMAN";
+                alert = Alert.HANDYMAN;
                 break;
             case R.id.ivDelivery:
-                alert = "DELIVERY";
+                alert = Alert.DELIVERY;
                 break;
             case R.id.ivGardening:
-                alert = "GARDENING";
+                alert = Alert.GARDENING;
                 break;
             case R.id.ivRemovalists:
-                alert = "REMOVALISTS";
+                alert = Alert.REMOVALISTS;
                 break;
             case R.id.ivAdmin:
-                alert = "ADMIN";
+                alert = Alert.ADMIN;
                 break;
             case R.id.ivITcomp:
-                alert = "COMPUTER_IT";
+                alert = Alert.COMPUTER_IT;
                 break;
             case R.id.ivPhoto:
-                alert = "PHOTOGRAPHY";
+                alert = Alert.PHOTOGRAPHY;
                 break;
             case R.id.ivAnyhingElse:
-                alert = "ANYTHING_ELSE";
+                alert = Alert.ANYTHING_ELSE;
                 break;
         }
         if (getActivity() == null || alert == null) {
