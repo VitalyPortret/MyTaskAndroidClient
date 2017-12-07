@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -28,9 +29,11 @@ import ru.portretov.mytaskandroidclient.util.ServerURL;
 public class DetailTaskActivity extends BottomNavigationStateActivity {
 
     private TextView tvTitle, tvUserName, tvAddress, tvDueDate, tvPrice, tvDescription, tvPublicationDate;
-    private ImageView ivTaskerPhoto, ivTaskAlert;
+    private ImageView ivTaskerPhoto, ivTaskAlert, ivError;
+    private Button btnRefreshError, btnAccept;
     private LinearLayout llDetailTask;
     private String idTask;
+    private ScrollView scrollDetailTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,18 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         Intent intent = getIntent();
         idTask = intent.getStringExtra("id");
 
+        createWidgets();
+
         bottomNavigation = findViewById(R.id.navigation);
         updateBottomNavigationViewState();
         bottomNavigation.setOnNavigationItemSelectedListener(this);
+
+        new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
+    }
+
+    private void createWidgets() {
+        scrollDetailTask = findViewById(R.id.scrollDetailTask);
+        llDetailTask = findViewById(R.id.llDetailTask);
 
         tvTitle = findViewById(R.id.tvTitle);
         tvUserName = findViewById(R.id.tvUserName);
@@ -50,11 +62,17 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
         tvPublicationDate = findViewById(R.id.tvPublicationDate);
         tvPrice = findViewById(R.id.tvPrice);
         tvDescription = findViewById(R.id.tvDescription);
-        llDetailTask = findViewById(R.id.llDetailTask);
+
         ivTaskerPhoto = findViewById(R.id.ivTaskerPhoto);
         ivTaskAlert = findViewById(R.id.ivTaskAlert);
 
-        new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
+        btnAccept = findViewById(R.id.btnAccept);
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GetTaskById().execute(ServerURL.URL_EXECUTOR_TASKS + idTask);
+            }
+        });
     }
 
     @Override
@@ -63,37 +81,50 @@ public class DetailTaskActivity extends BottomNavigationStateActivity {
     }
 
     public void fillWidget(Task task){
+        //Делаю видемым, если Task не пришел, и элемент был невидем
+        llDetailTask.setVisibility(View.VISIBLE);
+
         if (task == null) {
-            ImageView imageView = new ImageView(this);
-            imageView.setBackgroundColor(Color.RED);
-            imageView.setImageResource(R.drawable.ic_mail);
-            imageView.layout(0, 0, 100, 0);
-            imageView.setLayoutParams(
+            ivError = new ImageView(this);
+            ivError.setBackgroundColor(Color.RED);
+            ivError.setImageResource(R.drawable.astronaut_error);
+            ivError.setScaleType(ImageView.ScaleType.FIT_XY);
+            ivError.layout(0, 0, 100, 0);
+            ivError.setLayoutParams(
                     new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT
                     )
             );
-            Button btn = new Button(this);
-            btn.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            btn.setText("Refresh");
-            btn.setOnClickListener(new View.OnClickListener() {
+            btnRefreshError = new Button(this);
+            btnRefreshError.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            btnRefreshError.setText("Refresh");
+            btnRefreshError.layout(0, 0, 100, 0);
+            btnRefreshError.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new GetTaskById().execute(ServerURL.URL_TASK_BY_ID + idTask);
                 }
             });
 
-            llDetailTask.removeAllViews();
-            llDetailTask.addView(imageView);
-            llDetailTask.addView(btn);
+            llDetailTask.setVisibility(View.GONE);
+
+            scrollDetailTask.addView(ivError);
+            scrollDetailTask.addView(btnRefreshError);
             return;
         }
+
         tvTitle.setText(task.getTitle());
+
         if (task.getTaskType() == TaskType.ONLINE_TASK) {
             tvAddress.setText(R.string.online);
         } else {
             tvAddress.setText(task.getLocation());
+        }
+        if (task.getExecutor() != null) {
+            btnAccept.setVisibility(View.GONE);
+        } else {
+            btnAccept.setVisibility(View.VISIBLE);
         }
         //todo: Изменить адрес на адекватный и добавить картинки
         tvDueDate.setText(task.getDueDate().toString());

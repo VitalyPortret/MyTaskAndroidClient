@@ -33,6 +33,8 @@ public class Task {
 
     private Profile creator;
 
+    private Profile executor;
+
     public String getId() {
         return id;
     }
@@ -135,5 +137,13 @@ public class Task {
 
     public void setCreator(Profile creator) {
         this.creator = creator;
+    }
+
+    public Profile getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(Profile executor) {
+        this.executor = executor;
     }
 }

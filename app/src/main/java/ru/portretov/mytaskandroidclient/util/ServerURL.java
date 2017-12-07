@@ -13,4 +13,5 @@ public class ServerURL {
     public static final String URL_TASK_BY_ID = URL_SERVER + "/api/tasks/";
     public static final String URL_OPEN_TASKS = URL_SERVER + "/api/tasks/open";
     public static final String URL_ONLINE_TASKS = URL_SERVER + "/api/tasks/online";
+    public static final String URL_EXECUTOR_TASKS = URL_SERVER + "/api/tasks/executor/";
 }
